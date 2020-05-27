@@ -1,0 +1,25 @@
+{
+  "name": "mern",
+  "version": "1.0.0",
+  "description": "MERN app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clemhff/MERN.git"
+  },
+  "author": "Hoff Clement",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clemhff/MERN/issues"
+  },
+  "homepage": "https://github.com/clemhff/MERN#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.7",
+    "path": "^0.12.7"
+  }
+}
