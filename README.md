@@ -9,7 +9,7 @@ Run 'npm install' in the git root directory to load node modules
 
 ```npm install```
 
-### npm install for frontend modules and build folders
+### npm install for frontend modules and build folder
 
 ```cd reactdir/```
 
@@ -61,6 +61,34 @@ module.exports = {
 ```
 
 
-### Put PUBLIC_URL in the .env file in /react_dir/
+### Put PUBLIC_URL in the .env file in /react_dir/ directory
 
 ```PUBLIC_URL=/app/```
+
+
+# Routes
+
+## API REST routes
+
+GET /quotes/:id
+POST /quotes
+PUT /quotes/:id
+DELETE /quotes/:id
+
+
+POST and PUT body format :
+
+```
+--request POST 'localhost:8080/quote'
+--header 'Content-Type: application/json'
+--data-raw
+  '{
+    "quote": "ahahah",
+    "author": "me"
+
+   }'
+```
+
+## Other Routes
+
+/home
