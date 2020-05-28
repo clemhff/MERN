@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function Quotes_List() {
+function QuotesList() {
   return (
     <div class="title_div">
       <h1 class="title">premier titre React</h1>
@@ -9,4 +9,4 @@ function Quotes_List() {
   );
 }
 
-export default Quotes_List;
+export default QuotesList;

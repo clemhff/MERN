@@ -4,7 +4,7 @@ const mongodb = require("mongodb");
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const env = require('./config/env'); // port
+const env = require('./config/env'); // port and appRouteUrl
 const db = require( './functions/mongoUtil' ); // db connection module
 
 const resume = require('./routes/resume'); // routes from resume.js
@@ -19,6 +19,8 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json())
 
+app.use(env.appRootUrl + '/static', express.static(__dirname + '/react_dir/build/static')); // put an environnement variable for '/reactdev'
+console.log(__dirname + '/react_dir/build/static');
 
 // Connect to the database before starting the application server.
 db.connectDb( function( err, client ) {
@@ -35,6 +37,16 @@ db.connectDb( function( err, client ) {
   });
 });
 
+
+app.get("/home", function(req, res) {
+    console.log(path.join(__dirname, '/react_dir/build/index.html'));
+    res.sendFile('index.html', {root : __dirname + '/react_dir/build'});
+  });
+
+/*app.get("/static/", function(req, res) {
+    console.log(path.join(__dirname, '/react_dir/build/index.html'));
+      es.sendFile('index.html', {root : __dirname + '/react_dir/build'});
+  });*/
 
 // URL routing
 resume (app);
