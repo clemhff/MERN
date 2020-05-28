@@ -5,7 +5,7 @@
 
 ### npm install for backend modules
 
-Run the git root directory to load node modules
+Run 'npm install' in the git root directory to load node modules
 
 ```npm install```
 
