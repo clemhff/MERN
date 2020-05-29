@@ -6,7 +6,7 @@ var _db;
 
 function connectDb(callback) {
   MongoClient.connect( env.dbUrl,  {useUnifiedTopology: true, useNewUrlParser: true }, function( err, client ) {
-    _db  = client.db('MERN_BDD');
+    _db  = client.db(env.bdd);
     return callback( err );
   } );
 }

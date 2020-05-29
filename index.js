@@ -43,10 +43,6 @@ app.get("/home", function(req, res) {
     res.sendFile('index.html', {root : __dirname + '/react_dir/build'});
   });
 
-/*app.get("/static/", function(req, res) {
-    console.log(path.join(__dirname, '/react_dir/build/index.html'));
-      es.sendFile('index.html', {root : __dirname + '/react_dir/build'});
-  });*/
 
 // URL routing
 resume (app);

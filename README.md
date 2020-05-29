@@ -44,7 +44,7 @@ Create Database
 
 Create collection
 
-```db.collection('quotes')```
+```db.createCollection('quotes')```
 
 ### Create the file env.js in the config/
 
@@ -71,8 +71,11 @@ module.exports = {
 ## API REST routes
 
 GET /quotes/:id
+
 POST /quotes
+
 PUT /quotes/:id
+
 DELETE /quotes/:id
 
 
