@@ -2,9 +2,10 @@ import React from 'react';
 import Menu from './Menu';
 import QuotesList from './QuotesList';
 
+
 function App() {
   return (
-    <div class="App">
+    <div className="App">
       <Menu/>
       <QuotesList/>
     </div>
