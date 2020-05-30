@@ -7,11 +7,12 @@ class QuotesList extends Component {
       super(props);
       this.state = {
         cards: [],
-        stepNumber: 0,
-        xIsNext: true
+        formInput: [],
+        formState: false
       };
   }
 
+  //API call
   componentDidMount() {
       fetch('http://localhost:8080/lastentries')
         .then(response => response.json())
@@ -25,10 +26,10 @@ class QuotesList extends Component {
 
         })
         .then(data => this.setState({ cards : data }))
-
-        ;
+      ;
    }
 
+   //Créer les cards
    createCards() {
      this.state.cards.map((index) => {
 
@@ -37,15 +38,23 @@ class QuotesList extends Component {
      })
    }
 
+   //Supprimer l'affichage de la card
    modifyCard = (i) => {
      const temp = this.state.cards.slice();
+     temp.map( (x) => {
+       if (x.cardState === 'modify'){
+         x.cardState ='ok'
+       }
+       return x ;
+     });
      temp[i].cardState ='modify';
      console.log(JSON.stringify(temp[i].cardState));
-     this.setState({ cards: temp });
+     this.setState({ cards: temp, formInput: [], formState: false });
 
      return ;
    }
 
+   //Supprimer l'affichage de la card
    deleteCard = (i) => {
      const temp = this.state.cards.slice();
      temp[i].cardState ='delete';
@@ -53,6 +62,53 @@ class QuotesList extends Component {
      this.setState({ cards: temp });
 
      return ;
+   }
+
+   //fonstion qui prend les valeurs de formInput et qui l'insert dans cards props
+   submitForm = (i) => {
+     console.log('submitting ' + i);
+     if(this.state.formState){
+       const temp = this.state.cards.slice();
+       temp[i].cardState ='ok';
+       if (this.state.formInput[1] != null){
+         temp[i].author = this.state.formInput[1];
+       }
+       if (this.state.formInput[0] != null){
+         temp[i].quote = this.state.formInput[0];
+       }
+       this.setState({ cards: temp, formInput: [], formState: false });
+
+     }
+     else {
+       const temp = this.state.cards.slice();
+       temp[i].cardState ='ok';
+       console.log(JSON.stringify(temp[i].cardState));
+       this.setState({ cards: temp, formInput: [], formState: false });
+     }
+   }
+
+   cancelForm = (i) => {
+     const temp = this.state.cards.slice();
+     temp[i].cardState ='ok';
+     this.setState({ cards: temp, formInput: [], formState: false });
+   }
+
+   //fonction qui alimente formInput props pour les input du formaulaire
+   dataForm = (cas, value) => {
+     this.setState({ formState: true });
+     if (cas === 0){
+       const q = this.state.formInput.slice();
+       q[0]=value;;
+       this.setState({ formInput: q });
+     }
+     else if (cas === 1){
+       const q = this.state.formInput.slice();
+       q[1]=value;;
+       this.setState({ formInput: q });
+     }
+     else {
+       console.log('pas d\'input error');
+     }
    }
 
   render () {
@@ -66,6 +122,9 @@ class QuotesList extends Component {
             quote_Object={this.state.cards[i]}
             onClickM={(i) => this.modifyCard(i)}
             onClickD={(i) => this.deleteCard(i)}
+            onClickS={(i) => this.submitForm(i)}
+            onClickC={(i) => this.cancelForm(i)}
+            changeForm={(cas, value) => this.dataForm(cas, value)}
           />
       ))
 
