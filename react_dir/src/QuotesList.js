@@ -15,7 +15,18 @@ class QuotesList extends Component {
   componentDidMount() {
       fetch('http://localhost:8080/lastentries')
         .then(response => response.json())
-        .then(data => this.setState({ cards : data }));
+        .then(data => {
+          var dataState = data.map( x => {
+            x.cardState = 'ok'; // ok modify delete
+            return x
+          })
+          //console.log(JSON.stringify(data));
+          return data; //dataState;
+
+        })
+        .then(data => this.setState({ cards : data }))
+
+        ;
    }
 
    createCards() {
@@ -26,12 +37,36 @@ class QuotesList extends Component {
      })
    }
 
+   modifyCard = (i) => {
+     const temp = this.state.cards.slice();
+     temp[i].cardState ='modify';
+     console.log(JSON.stringify(temp[i].cardState));
+     this.setState({ cards: temp });
+
+     return ;
+   }
+
+   deleteCard = (i) => {
+     const temp = this.state.cards.slice();
+     temp[i].cardState ='delete';
+     console.log(JSON.stringify(temp[i].cardState));
+     this.setState({ cards: temp });
+
+     return ;
+   }
+
   render () {
     if(this.state.cards === [] )
       {return 'null'}
 
     let cardList = this.state.cards.map((el, i) => (
-          <Card key={i} id={JSON.stringify(el.author)} />
+          <Card
+            key={i}
+            num={i}
+            quote_Object={this.state.cards[i]}
+            onClickM={(i) => this.modifyCard(i)}
+            onClickD={(i) => this.deleteCard(i)}
+          />
       ))
 
     return (
