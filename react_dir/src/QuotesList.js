@@ -56,12 +56,14 @@ class QuotesList extends Component {
      return ;
    }
 
-   //Supprimer l'affichage de la card
+   //Supprimer la card
    deleteCard = (i) => {
      const temp = this.state.cards.slice();
      temp[i].cardState ='delete';
      console.log(JSON.stringify(temp[i].cardState));
-     this.setState({ cards: temp });
+     //this.setState({ cards: temp });
+     fetch('http://localhost:8080/quote/' +  temp[i]["_id"] , {method: 'DELETE'})
+     .then( () => this.setState({ cards: temp }) ) ;
 
      return ;
    }
@@ -73,13 +75,27 @@ class QuotesList extends Component {
      if(this.state.formState){
        const temp = this.state.cards.slice();
        temp[i].cardState ='ok';
-       if (this.state.formInput[1] != null){
+       if (this.state.formInput[1] != null && this.state.formInput[1] != ""){
          temp[i].author = this.state.formInput[1];
        }
-       if (this.state.formInput[0] != null){
+       if (this.state.formInput[0] != null && this.state.formInput[0] != ""){
          temp[i].quote = this.state.formInput[0];
        }
-       this.setState({ cards: temp, formInput: [], formState: false, addQuote : false });
+       const obj = {
+           'quote' : temp[i].quote,
+           'author' : temp[i].author }
+
+       fetch('http://localhost:8080/quote/' + temp[i]["_id"] , {
+         method: 'PUT',
+         headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(obj)
+       })
+        //mettre un contrôle erreur API
+        .then (() => this.setState({ cards: temp, formInput: [], formState: false, addQuote : false }));
+
 
      }
      else {
@@ -111,7 +127,7 @@ class QuotesList extends Component {
    //submit for addquote form ( à refactorer un jour avec celle du dessus)
    submitFormAddQuote = () => {
      const temp = this.state.cards.slice();
-     if (this.state.formInput[1] && this.state.formInput[0]) {
+     if (this.state.formInput[1] != null && this.state.formInput[1] != "" && this.state.formInput[0] != null && this.state.formInput[0] != "") {
        const obj = {
            'quote' : this.state.formInput[0],
            'author' : this.state.formInput[1] }
@@ -128,8 +144,11 @@ class QuotesList extends Component {
         .then(response => {
           temp.unshift(response);
           temp[0].cardState = 'ok';
-          this.setState({ cards: temp, formInput: [], formState: false, addQuote : false })
+          this.setState({ cards: temp, formInput: [], formState: false, addQuote : false });
         } );
+      }
+      else {
+        this.setState({ cards: temp, formInput: [], formState: false, addQuote : false });
       }
      }
 
