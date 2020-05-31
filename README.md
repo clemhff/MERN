@@ -64,6 +64,7 @@ module.exports = {
 ### Put PUBLIC_URL in the .env file in /react_dir/ directory
 
 ```PUBLIC_URL=/app/```
+```REACT_APP_API_URL=http://localhost:8080```
 
 
 # Routes

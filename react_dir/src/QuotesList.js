@@ -16,7 +16,7 @@ class QuotesList extends Component {
 
   //API call
   componentDidMount() {
-      fetch('http://localhost:8080/lastentries')
+      fetch(process.env.REACT_APP_API_URL + '/lastentries')
         .then(response => response.json())
         .then(data => {
           var dataState = data.map( x => {
@@ -62,7 +62,7 @@ class QuotesList extends Component {
      temp[i].cardState ='delete';
      console.log(JSON.stringify(temp[i].cardState));
      //this.setState({ cards: temp });
-     fetch('http://localhost:8080/quote/' +  temp[i]["_id"] , {method: 'DELETE'})
+     fetch(process.env.REACT_APP_API_URL + '/quote/' +  temp[i]["_id"] , {method: 'DELETE'})
      .then( () => this.setState({ cards: temp }) ) ;
 
      return ;
@@ -85,7 +85,7 @@ class QuotesList extends Component {
            'quote' : temp[i].quote,
            'author' : temp[i].author }
 
-       fetch('http://localhost:8080/quote/' + temp[i]["_id"] , {
+       fetch(process.env.REACT_APP_API_URL + '/quote/' + temp[i]["_id"] , {
          method: 'PUT',
          headers: {
            'Accept': 'application/json',
@@ -132,7 +132,7 @@ class QuotesList extends Component {
            'quote' : this.state.formInput[0],
            'author' : this.state.formInput[1] }
 
-       fetch('http://localhost:8080/quote', {
+       fetch(process.env.REACT_APP_API_URL + '/quote', {
          method: 'POST',
          headers: {
            'Accept': 'application/json',
