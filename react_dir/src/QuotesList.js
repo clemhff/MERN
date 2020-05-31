@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Card from './Card';
+import AddQuote from './AddQuote';
 
 class QuotesList extends Component {
 
@@ -8,7 +9,8 @@ class QuotesList extends Component {
       this.state = {
         cards: [],
         formInput: [],
-        formState: false
+        formState: false,
+        addQuote : false
       };
   }
 
@@ -49,7 +51,7 @@ class QuotesList extends Component {
      });
      temp[i].cardState ='modify';
      console.log(JSON.stringify(temp[i].cardState));
-     this.setState({ cards: temp, formInput: [], formState: false });
+     this.setState({ cards: temp, formInput: [], formState: false, addQuote : false });
 
      return ;
    }
@@ -67,6 +69,7 @@ class QuotesList extends Component {
    //fonstion qui prend les valeurs de formInput et qui l'insert dans cards props
    submitForm = (i) => {
      console.log('submitting ' + i);
+
      if(this.state.formState){
        const temp = this.state.cards.slice();
        temp[i].cardState ='ok';
@@ -76,14 +79,14 @@ class QuotesList extends Component {
        if (this.state.formInput[0] != null){
          temp[i].quote = this.state.formInput[0];
        }
-       this.setState({ cards: temp, formInput: [], formState: false });
+       this.setState({ cards: temp, formInput: [], formState: false, addQuote : false });
 
      }
      else {
        const temp = this.state.cards.slice();
        temp[i].cardState ='ok';
        console.log(JSON.stringify(temp[i].cardState));
-       this.setState({ cards: temp, formInput: [], formState: false });
+       this.setState({ cards: temp, formInput: [], formState: false, addQuote : false });
      }
    }
 
@@ -91,6 +94,48 @@ class QuotesList extends Component {
      const temp = this.state.cards.slice();
      temp[i].cardState ='ok';
      this.setState({ cards: temp, formInput: [], formState: false });
+   }
+
+
+   onClickAdd = () => {
+     const temp = this.state.cards.slice();
+     temp.map( (x) => {
+       if (x.cardState === 'modify'){
+         x.cardState ='ok'
+       }
+       return x ;
+     });
+     this.setState({ cards: temp, formInput: [], formState: false, addQuote : true });
+   }
+
+   //submit for addquote form ( à refactorer un jour avec celle du dessus)
+   submitFormAddQuote = () => {
+     const temp = this.state.cards.slice();
+     if (this.state.formInput[1] && this.state.formInput[0]) {
+       const obj = {
+           'quote' : this.state.formInput[0],
+           'author' : this.state.formInput[1] }
+
+       fetch('http://localhost:8080/quote', {
+         method: 'POST',
+         headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(obj)
+       })
+        .then(response => response.json())
+        .then(response => {
+          temp.unshift(response);
+          temp[0].cardState = 'ok';
+          this.setState({ cards: temp, formInput: [], formState: false, addQuote : false })
+        } );
+      }
+     }
+
+
+   cancelFormAddQuote = () => {
+     this.setState({formInput: [], formState: false , addQuote: false });
    }
 
    //fonction qui alimente formInput props pour les input du formaulaire
@@ -134,6 +179,13 @@ class QuotesList extends Component {
           <div className="row">
             <div className="col-12">
               <ul>
+                <AddQuote
+                  addQuote={this.state.addQuote}
+                  onClickAdd={() => this.onClickAdd()}
+                  onClickS={() => this.submitFormAddQuote()}
+                  onClickC={() => this.cancelFormAddQuote()}
+                  changeForm={(cas, value) => this.dataForm(cas, value)}
+                />
                 {cardList}
               </ul>
             </div>
