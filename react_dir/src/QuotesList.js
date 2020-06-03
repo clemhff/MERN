@@ -19,12 +19,12 @@ class QuotesList extends Component {
       fetch(process.env.REACT_APP_API_URL + '/lastentries')
         .then(response => response.json())
         .then(data => {
-          var dataState = data.map( x => {
+          data.map( x => {
             x.cardState = 'ok'; // ok modify delete
             return x
           })
           //console.log(JSON.stringify(data));
-          return data; //dataState;
+          return data; 
 
         })
         .then(data => this.setState({ cards : data }))
@@ -75,10 +75,10 @@ class QuotesList extends Component {
      if(this.state.formState){
        const temp = this.state.cards.slice();
        temp[i].cardState ='ok';
-       if (this.state.formInput[1] != null && this.state.formInput[1] != ""){
+       if (this.state.formInput[1] !== null && this.state.formInput[1] !== ""){
          temp[i].author = this.state.formInput[1];
        }
-       if (this.state.formInput[0] != null && this.state.formInput[0] != ""){
+       if (this.state.formInput[0] !== null && this.state.formInput[0] !== ""){
          temp[i].quote = this.state.formInput[0];
        }
        const obj = {
@@ -127,7 +127,7 @@ class QuotesList extends Component {
    //submit for addquote form ( à refactorer un jour avec celle du dessus)
    submitFormAddQuote = () => {
      const temp = this.state.cards.slice();
-     if (this.state.formInput[1] != null && this.state.formInput[1] != "" && this.state.formInput[0] != null && this.state.formInput[0] != "") {
+     if (this.state.formInput[1] !== null && this.state.formInput[1] !== "" && this.state.formInput[0] !== null && this.state.formInput[0] !== "") {
        const obj = {
            'quote' : this.state.formInput[0],
            'author' : this.state.formInput[1] }

@@ -6,7 +6,7 @@ class AddQuote extends Component {
   quoteCard = () => {
     if (this.props.addQuote === false) {
       return (
-        <div className="card">
+        <div className="card cardq">
           <div className="card-body">
             <button
               className="btn btn-primary btn-modify"
@@ -23,7 +23,7 @@ class AddQuote extends Component {
     }
     else if (this.props.addQuote === true) {
       return (
-        <div className="card">
+        <div className="card cardq">
           <div className="card-body">
             <form>
               <div className="form-group">

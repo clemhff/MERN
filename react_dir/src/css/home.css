@@ -1,0 +1,13 @@
+.prez {
+  height: 32em;
+  margin-top: 25px;
+}
+
+.cbody{
+  position: relative;
+}
+
+.cbutton{
+  position:absolute;
+  bottom:1em;
+}

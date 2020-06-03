@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect}  from 'react';
+import React, {useState, useEffect}  from 'react';
 import { Link, useLocation } from "react-router-dom";
 
 
@@ -7,13 +7,20 @@ const Menu = (props) => {
 
   let location = useLocation();
   let [pathname, setPathname] = useState("");
-
-  useEffect(() => {
-    setPathname(location.pathname)
-  }, [location]);
+  let [numero, setNumero] = useState(0);
 
   let homeActive = null ;
   let quoteAppActive = null ;
+
+  useEffect(
+    () => {
+      setPathname(location.pathname);
+      console.log('recharge');
+    }, [location]);
+
+  /*const add = () => {
+    setNumero( numero + 1);
+  }*/
 
 
   if(pathname === process.env.PUBLIC_URL + '' ) {

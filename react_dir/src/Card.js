@@ -9,7 +9,7 @@ class Card extends Component {
 
     if(this.props.quote_Object.cardState === 'ok') {
       return (
-        <div className="card">
+        <div className="card cardq">
           <div className="card-body">
             <h5 className="card-title">{this.props.quote_Object.quote}</h5>
             <p className="card-text">{this.props.quote_Object.author}</p>
@@ -42,7 +42,7 @@ class Card extends Component {
 
     else if (this.props.quote_Object.cardState === 'modify') {
       return (
-        <div className="card">
+        <div className="card cardq">
           <div className="card-body">
             <form>
               <div className="form-group">
