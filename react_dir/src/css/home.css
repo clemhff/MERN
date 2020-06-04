@@ -1,6 +1,27 @@
+.section1 {
+
+}
+
+
+.section1title {
+  height: 20em;
+}
+
+
+.section2 {
+  border-top: 3px solid #ddd;
+  background-color: #f9f4f3;
+  padding-bottom: 70px;
+}
+
+.section2title {
+  height: 10em;
+  margin-top: 0px;
+}
+
 .prez {
   height: 32em;
-  margin-top: 25px;
+  margin-top: 1px;
 }
 
 .cbody{
@@ -10,4 +31,16 @@
 .cbutton{
   position:absolute;
   bottom:1em;
+}
+
+.footer {
+
+}
+
+.footermain {
+  height: 10em;
+}
+
+.footerp{
+  margin-bottom: 0px;
 }
