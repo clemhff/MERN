@@ -24,7 +24,7 @@ class QuotesList extends Component {
             return x
           })
           //console.log(JSON.stringify(data));
-          return data; 
+          return data;
 
         })
         .then(data => this.setState({ cards : data }))
@@ -75,10 +75,10 @@ class QuotesList extends Component {
      if(this.state.formState){
        const temp = this.state.cards.slice();
        temp[i].cardState ='ok';
-       if (this.state.formInput[1] !== null && this.state.formInput[1] !== ""){
+       if (this.state.formInput[1] !== null && this.state.formInput[1]){
          temp[i].author = this.state.formInput[1];
        }
-       if (this.state.formInput[0] !== null && this.state.formInput[0] !== ""){
+       if (this.state.formInput[0] !== null && this.state.formInput[0]){
          temp[i].quote = this.state.formInput[0];
        }
        const obj = {
