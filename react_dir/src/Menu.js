@@ -7,7 +7,7 @@ const Menu = (props) => {
 
   let location = useLocation();
   let [pathname, setPathname] = useState("");
-  let [numero, setNumero] = useState(0);
+  //let [numero, setNumero] = useState(0);
 
   let homeActive = null ;
   let quoteAppActive = null ;
