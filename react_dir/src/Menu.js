@@ -15,7 +15,7 @@ const Menu = (props) => {
   useEffect(
     () => {
       setPathname(location.pathname);
-      console.log('recharge');
+      console.log('path is' + location.pathname);
     }, [location]);
 
   /*const add = () => {

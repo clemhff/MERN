@@ -19,7 +19,7 @@ function App() {
       <div className="App">
         <Menu/>
         <Switch>
-          <Route exact path={process.env.PUBLIC_URL + ''} >
+          <Route exact path={process.env.PUBLIC_URL + '/'} >
             <Home/>
           </Route>
           <Route exact path={process.env.PUBLIC_URL + '/quoteapp'} >
